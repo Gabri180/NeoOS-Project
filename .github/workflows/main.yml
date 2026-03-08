@@ -1,0 +1,33 @@
+name: Build NeoOS for Mac
+on: [push] # Se ejecutará cada vez que subas cambios
+
+jobs:
+  build-macos:
+    runs-on: macos-latest # Aquí le decimos que use una computadora Mac
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar librerías
+        run: |
+          python -m pip install --upgrade pip
+          pip install customtkinter Pillow py2app
+
+      - name: Crear Aplicación (.app)
+        run: |
+          python setup.py py2app
+
+      - name: Comprimir Aplicación
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent dist/NeoOS.app NeoOS-Mac-Alpha.zip
+
+      - name: Subir Resultado
+        uses: actions/upload-artifact@v3
+        with:
+          name: NeoOS-App-Mac
+          path: NeoOS-Mac-Alpha.zip
