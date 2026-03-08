@@ -1,15 +1,15 @@
 name: Build NeoOS for Mac
-on: [push] # Se ejecutará cada vez que subas cambios
+on: [push]
 
 jobs:
   build-macos:
-    runs-on: macos-latest # Aquí le decimos que use una computadora Mac
+    runs-on: macos-latest
     steps:
       - name: Checkout del código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Actualizado a v4
 
       - name: Configurar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Actualizado a v5
         with:
           python-version: '3.11'
 
@@ -27,7 +27,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent dist/NeoOS.app NeoOS-Mac-Alpha.zip
 
       - name: Subir Resultado
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # <--- AQUÍ ESTÁ LA CORRECCIÓN CLAVE
         with:
           name: NeoOS-App-Mac
           path: NeoOS-Mac-Alpha.zip
