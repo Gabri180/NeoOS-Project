@@ -1,9 +1,15 @@
 from setuptools import setup
+import os
+
+# Definimos los archivos extra (como la imagen de la nube)
+DATA_FILES = []
+if os.path.exists("nube.png"):
+    DATA_FILES.append("nube.png")
 
 APP = ['neoos.pyw']
-DATA_FILES = ['nube.png']
 OPTIONS = {
     'argv_emulation': True,
+    'packages': ['customtkinter', 'PIL'], # Forzamos la inclusión de las librerías
     'plist': {
         'CFBundleName': 'NeoOS',
         'CFBundleDisplayName': 'NeoOS Alpha',
