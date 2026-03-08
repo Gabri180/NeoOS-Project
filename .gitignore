@@ -1,0 +1,14 @@
+# Build artifacts
+build/
+dist/
+
+# PyInstaller
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Sensitive files
+system_user.json
